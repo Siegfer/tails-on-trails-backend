@@ -1,15 +1,6 @@
-# User Stories
-- Shelter should be able to see all volunteers
-- Shelter should be able to see all dogs currently at their shelter
-- Shelter should be able to edit dogs currently at their shelter
-- Shelter should be able to view Calendar of volunteers walkers
-- Shelter should be able to view every appointment selected 
-- Shelter should be able to see which dog have already been selected
-- Shelter should be able to view walker profile and the dog they selected
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-# Schema pseudo Code to use discriminator
-
-``` js
 /**
  * Pseudo Code for Shelter Schema
  * Base:
@@ -30,5 +21,16 @@
  * 	- dog already have a separate schema set up for them
  *
  */
-```
 
+const baseOptions = {
+	// our discriminator key, could be anything
+	discriminatorKey: 'roleType',
+	// the name of our collection
+	collection: 'roles'
+}
+
+const baseSchema = new Schema({})
+
+const Base = mongoose.model('Base', baseSchema)
+
+module.exports = Base
