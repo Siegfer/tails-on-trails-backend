@@ -57,5 +57,6 @@ const shelterSchema = Base.discriminator(
 // 	]
 // })
 
-const Shelter = mongoose.model('Shelter', shelterSchema)
-module.exports = Shelter
+// const Shelter = mongoose.model('Shelter', shelterSchema)
+// module.exports = Shelter
+module.exports = mongoose.model('Shelter', shelterSchema)

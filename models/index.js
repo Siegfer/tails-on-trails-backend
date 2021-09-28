@@ -26,8 +26,14 @@ db.on('error', (error) => {
 
 // Import models here
 const Shelter = require('./shelter')
+const Base = require('./base')
+const Dog = require('./dog')
+const Walker = require('./walker')
 
 module.exports = {
 	// model goes here
-	Shelter
+	Shelter,
+	Base,
+	Dog,
+	Walker
 }
