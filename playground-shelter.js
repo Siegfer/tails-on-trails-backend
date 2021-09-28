@@ -1,4 +1,4 @@
-const { Shelter, Base } = require('./models')
+const { Shelter } = require('./models')
 
 async function createNewShelter() {
 	try {
@@ -14,6 +14,7 @@ async function createNewShelter() {
 					zipcode: 90047
 				}
 			],
+			provider: true,
 			license: 'asidasdflkjewioqijds;fjoiewa'
 		})
 		console.log('🧚🏽‍♂️ ---------------------------------------')
