@@ -17,4 +17,5 @@ const walkerSchema = new Schema({
 	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
 })
 
+// doesn't need discriminator
 module.exports = mongoose.model('Walker', walkerSchema)
