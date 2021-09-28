@@ -25,10 +25,7 @@ const Shelter = Base.discriminator(
 	'Shelter',
 	new Schema({
 		address: [addressSchema],
-		license: {
-			type: String,
-			require: true
-		}
+		provider: { type: Boolean, require: true }
 	})
 )
 

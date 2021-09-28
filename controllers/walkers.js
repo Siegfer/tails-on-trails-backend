@@ -5,11 +5,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport = require('passport')
-const { Shelter } = require('../models')
+const { Walker } = require('../models')
 
 router.get('/', async (req, res) => {
 	try {
-		let allData = await Shelter.find({})
+		let allData = await Walker.find({})
 		res.status(200).json({
 			information: allData
 		})
@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
 	console.log('===> Inside of /signup')
 	console.log(req.body)
 
-	Shelter.findOne({ email: req.body.email })
+	Walker.findOne({ email: req.body.email })
 		.then((user) => {
 			// if email already exists, a user will come back
 			if (user) {
@@ -46,8 +46,7 @@ router.post('/signup', async (req, res) => {
 				const newUser = new Shelter({
 					name: req.body.name,
 					email: req.body.email,
-					password: req.body.password,
-					provider: req.body.provider
+					password: req.body.password
 				})
 
 				// Salt and hash the password - before saving the user
@@ -77,7 +76,7 @@ router.post('/login', async (req, res) => {
 	console.log('===> Inside of /login')
 	console.log(req.body)
 
-	const foundUser = await Shelter.findOne({ email: req.body.email })
+	const foundUser = await Walker.findOne({ email: req.body.email })
 
 	if (foundUser) {
 		console.log('🧚🏽‍♂️ -------------------------------------------')
@@ -94,8 +93,7 @@ router.post('/login', async (req, res) => {
 			const payload = {
 				id: foundUser.id,
 				email: foundUser.email,
-				name: foundUser.name,
-				provider: foundUser.provider
+				name: foundUser.name
 			}
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {

@@ -12,6 +12,7 @@ app.use(passport.initialize())
 
 // import models
 app.use('/shelters', require('./controllers/shelters'))
+app.use('/walkers', require('./controllers/walkers'))
 
 // routes & controllers
 app.get('/', (req, res) => {

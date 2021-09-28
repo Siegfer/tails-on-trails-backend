@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-// doesn't need discriminator
+// doesn't need discriminatorWalker
 const walkerSchema = new Schema({
 	name: {
 		type: String,
