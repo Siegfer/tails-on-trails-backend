@@ -11,7 +11,7 @@ app.use(cors())
 app.use(passport.initialize())
 
 // import models
-// app.use('/shelters', require('./controllers/shelters'))
+app.use('/shelter', require('./controllers/shelters'))
 
 // routes & controllers
 app.get('/', (req, res) => {
