@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { Strategy, ExtractJwt } = require('passport-jwt')
 const mongoose = require('mongoose')
-const { User } = require('../models')
+const { Shelter } = require('../models')
 
 const options = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -11,7 +11,7 @@ const options = {
 module.exports = (passport) => {
 	passport.use(
 		new Strategy(options, (jwt_payload, done) => {
-			User.findById(jwt_payload.id)
+			Shelter.findById(jwt_payload.id)
 				.then((user) => {
 					if (user) {
 						return done(null, user)
