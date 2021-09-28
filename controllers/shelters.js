@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport = require('passport')
-const { Base, Shelter, Walker } = require('../models')
+const { Shelter } = require('../models')
 
 router.get('/', async (req, res) => {
 	try {
