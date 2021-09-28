@@ -32,41 +32,4 @@ const Shelter = Base.discriminator(
 	})
 )
 
-// const shelterSchema = Base.discriminator(
-// 	new Schema({
-// 		license: {
-// 			type: String,
-// 			require: true
-// 		}
-// 	})
-// )
-
-// const shelterSchema = new Schema({
-// 	shelterName: {
-// 		type: String,
-// 		required: true
-// 	},
-// 	License: {
-// 		type: String,
-// 		required: true
-// 	},
-// 	email: {
-// 		type: String,
-// 		required: true
-// 	},
-// 	addresses: [addressSchema],
-// 	mobileNumber: {
-// 		type: Number,
-// 		required: true
-// 	},
-// 	schedule: [
-// 		{
-// 			type: mongoose.Schema.Types.ObjectId,
-// 			ref: 'Schedule'
-// 		}
-// 	]
-// })
-
-// const Shelter = mongoose.model('Shelter', shelterSchema)
-// module.exports = Shelter
 module.exports = mongoose.model('Shelter')
