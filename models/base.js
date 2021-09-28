@@ -40,6 +40,4 @@ const baseSchema = new Schema(
 	baseOptions
 )
 
-// const Base = mongoose.model('Base', baseSchema)
-// module.exports = Base
 module.exports = mongoose.model('Base', baseSchema)

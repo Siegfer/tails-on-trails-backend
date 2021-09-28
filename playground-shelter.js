@@ -6,7 +6,7 @@ async function createNewShelter() {
 			name: 'South LA Animal Shelter',
 			email: 'AnimalShelter@LA.com',
 			mobileNumber: 8884527381,
-			addresses: [
+			address: [
 				{
 					street: '1850 W 60th Street',
 					city: 'Los Angeles',

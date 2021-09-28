@@ -24,6 +24,7 @@ const addressSchema = new Schema({
 const Shelter = Base.discriminator(
 	'Shelter',
 	new Schema({
+		address: [addressSchema],
 		license: {
 			type: String,
 			require: true
@@ -33,7 +34,6 @@ const Shelter = Base.discriminator(
 
 // const shelterSchema = Base.discriminator(
 // 	new Schema({
-// 		// address: [addressSchema],
 // 		license: {
 // 			type: String,
 // 			require: true
