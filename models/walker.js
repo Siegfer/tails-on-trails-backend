@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
+// doesn't need discriminator
 const walkerSchema = new Schema({
 	name: {
 		type: String,
@@ -17,6 +18,5 @@ const walkerSchema = new Schema({
 	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
 })
 
-const Walker = mongoose.model('Walker', walkerSchema)
-
-module.exports = Walker
+// doesn't need discriminator
+module.exports = mongoose.model('Walker', walkerSchema)
