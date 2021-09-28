@@ -76,9 +76,12 @@ router.post('/login', async (req, res) => {
 	console.log('===> Inside of /login')
 	console.log(req.body)
 
-	const foundUser = await User.findOne({ email: req.body.email })
+	const foundUser = await Shelter.findOne({ email: req.body.email })
 
 	if (foundUser) {
+		console.log('🧚🏽‍♂️ -------------------------------------------')
+		console.log('🧚🏽‍♂️ ~ router.post ~ foundUser', foundUser.password)
+		console.log('🧚🏽‍♂️ -------------------------------------------')
 		// user is in the DB
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
 		console.log('Match User', isMatch)
@@ -97,7 +100,7 @@ router.post('/login', async (req, res) => {
 				if (err) {
 					res
 						.status(400)
-						.json({ message: 'Session has endedd, please log in again' })
+						.json({ message: 'Session has ended, please log in again' })
 				}
 				const legit = jwt.verify(token, JWT_SECRET, { expiresIn: 60 })
 				console.log('===> legit')
