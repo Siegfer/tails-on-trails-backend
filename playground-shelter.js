@@ -1,4 +1,4 @@
-const { Shelter } = require('./models')
+const { Shelter, Base } = require('./models')
 
 async function createNewShelter() {
 	try {
@@ -6,14 +6,14 @@ async function createNewShelter() {
 			name: 'South LA Animal Shelter',
 			email: 'AnimalShelter@LA.com',
 			mobileNumber: 8884527381,
-			addresses: [
-				{
-					street: '1850 W 60th Street',
-					city: 'Los Angeles',
-					state: 'California',
-					zipcode: 90047
-				}
-			],
+			// addresses: [
+			// 	{
+			// 		street: '1850 W 60th Street',
+			// 		city: 'Los Angeles',
+			// 		state: 'California',
+			// 		zipcode: 90047
+			// 	}
+			// ],
 			provider: true,
 			license: 'asidasdflkjewioqijds;fjoiewa'
 		})
