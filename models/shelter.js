@@ -21,15 +21,25 @@ const addressSchema = new Schema({
 	}
 })
 
-const shelterSchema = Base.discriminator(
+const Shelter = Base.discriminator(
+	'Shelter',
 	new Schema({
-		// address: [addressSchema],
 		license: {
 			type: String,
 			require: true
 		}
 	})
 )
+
+// const shelterSchema = Base.discriminator(
+// 	new Schema({
+// 		// address: [addressSchema],
+// 		license: {
+// 			type: String,
+// 			require: true
+// 		}
+// 	})
+// )
 
 // const shelterSchema = new Schema({
 // 	shelterName: {
@@ -59,4 +69,4 @@ const shelterSchema = Base.discriminator(
 
 // const Shelter = mongoose.model('Shelter', shelterSchema)
 // module.exports = Shelter
-module.exports = mongoose.model('Shelter', shelterSchema)
+module.exports = mongoose.model('Shelter')
