@@ -8,11 +8,12 @@ app.use(express.json())
 app.use(cors())
 
 // import models
+// app.use('/shelters', require('./controllers/shelters'))
 
 // routes & controllers
 app.get('/', (req, res) => {
 	res.json({
-		name: 'tailsontrails API',
+		name: 'Tails on Trails API',
 		message: 'Welcome, let look at some dogs!!'
 	})
 })

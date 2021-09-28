@@ -17,6 +17,4 @@ const walkerSchema = new Schema({
 	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
 })
 
-const Walker = mongoose.model('Walker', walkerSchema)
-
-module.exports = Walker
+module.exports = mongoose.model('Walker', walkerSchema)

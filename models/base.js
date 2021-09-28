@@ -29,8 +29,15 @@ const baseOptions = {
 	collection: 'roles'
 }
 
-const baseSchema = new Schema({})
+// Base Schema: these properties will be shared with the rest of the models
+const baseSchema = new Schema(
+	{
+		name: { type: String, require: true },
+		email: { type: String, require: true },
+		mobileNumber: { type: Number, require: true },
+		provider: { type: Boolean, require: false }
+	},
+	baseOptions
+)
 
-const Base = mongoose.model('Base', baseSchema)
-
-module.exports = Base
+module.exports = mongoose.model('Base', baseSchema)

@@ -32,6 +32,4 @@ const dogSchema = new Schema({
 	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
 })
 
-const Dog = mongoose.model('Dog', dogSchema)
-
-module.exports = Dog
+module.exports = mongoose.model('Dog', dogSchema)

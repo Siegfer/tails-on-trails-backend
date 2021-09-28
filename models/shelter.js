@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+const Base = require('./base')
 
 const addressSchema = new Schema({
 	street: {
@@ -20,27 +21,41 @@ const addressSchema = new Schema({
 	}
 })
 
-const shelterSchema = new Schema({
-	shelterName: {
-		type: String,
-		required: true
-	},
-	License: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: String,
-		required: true
-	},
-	addresses: [addressSchema],
-	mobileNumber: {
-		type: Number,
-		required: true
-	},
-	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
-})
+const shelterSchema = Base.discriminator(
+	new Schema({
+		address: [addressSchema],
+		license: {
+			type: String,
+			require: true
+		}
+	})
+)
+
+// const shelterSchema = new Schema({
+// 	shelterName: {
+// 		type: String,
+// 		required: true
+// 	},
+// 	License: {
+// 		type: String,
+// 		required: true
+// 	},
+// 	email: {
+// 		type: String,
+// 		required: true
+// 	},
+// 	addresses: [addressSchema],
+// 	mobileNumber: {
+// 		type: Number,
+// 		required: true
+// 	},
+// 	schedule: [
+// 		{
+// 			type: mongoose.Schema.Types.ObjectId,
+// 			ref: 'Schedule'
+// 		}
+// 	]
+// })
 
 const Shelter = mongoose.model('Shelter', shelterSchema)
-
 module.exports = Shelter
