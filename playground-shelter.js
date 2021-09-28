@@ -5,7 +5,16 @@ async function createNewShelter() {
 		let newShelter = await Shelter.create({
 			name: 'South LA Animal Shelter',
 			email: 'AnimalShelter@LA.com',
-			mobileNumber: 8884527381
+			mobileNumber: 8884527381,
+			addresses: [
+				{
+					street: '1850 W 60th Street',
+					city: 'Los Angeles',
+					state: 'California',
+					zipcode: 90047
+				}
+			],
+			license: 'asidasdflkjewioqijds;fjoiewa'
 		})
 		console.log('🧚🏽‍♂️ ---------------------------------------')
 		console.log('🧚🏽‍♂️ ~ async ~ newShelter', newShelter)
@@ -18,13 +27,3 @@ async function createNewShelter() {
 }
 
 createNewShelter()
-
-// addresses: [
-// 	{
-// 		street: '1850 W 60th Street',
-// 		city: 'Los Angeles',
-// 		state: 'California',
-// 		zipcode: 90047
-// 	}
-// ],
-// license: 'asidasdflkjewioqijds;fjoiewa'
