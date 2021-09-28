@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
 	console.log('===> Inside of /signup')
 	console.log(req.body)
 
-	User.findOne({ email: req.body.email })
+	Shelter.findOne({ email: req.body.email })
 		.then((user) => {
 			// if email already exists, a user will come back
 			if (user) {
@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
 				return res.status(400).json({ message: 'Email already exists' })
 			} else {
 				// Create a new user
-				const newUser = new User({
+				const newUser = new Shelter({
 					name: req.body.name,
 					email: req.body.email,
 					password: req.body.password
