@@ -29,5 +29,5 @@ const Shelter = require('./shelter')
 
 module.exports = {
 	// model goes here
-	User
+	Shelter
 }
