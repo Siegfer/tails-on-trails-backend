@@ -11,19 +11,6 @@ const options = {
 module.exports = (passport) => {
 	passport.use(
 		new Strategy(options, (jwt_payload, done) => {
-			// Walker.findById(jwt_payload.id)
-			// 	.then((user) => {
-			// 		if (user) {
-			// 			return done(null, user)
-			// 		} else {
-			// 			return done(null, false)
-			// 		}
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log('=====> Error below (passport.js)')
-			// 		console.log(error)
-			// 	})
-
 			Shelter.findById(jwt_payload.id)
 				.then((user) => {
 					if (user) {
@@ -55,19 +42,6 @@ module.exports = (passport2) => {
 					console.log('=====> Error below (passport.js)')
 					console.log(error)
 				})
-
-			// Shelter.findById(jwt_payload.id)
-			// 	.then((user) => {
-			// 		if (user) {
-			// 			return done(null, user)
-			// 		} else {
-			// 			return done(null, false)
-			// 		}
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log('=====> Error below (passport.js)')
-			// 		console.log(error)
-			// 	})
 		})
 	)
 }
