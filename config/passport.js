@@ -20,7 +20,6 @@ module.exports = (passport) => {
 					}
 				})
 				.catch((error) => {
-					console.log('=====> Error below (passport.js)')
 					console.log(error)
 				})
 		})
@@ -39,7 +38,6 @@ module.exports = (passport2) => {
 					}
 				})
 				.catch((error) => {
-					console.log('=====> Error below (passport.js)')
 					console.log(error)
 				})
 		})
