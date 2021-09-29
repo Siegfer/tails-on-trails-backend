@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport2 = require('passport')
-const { Walker } = require('../models')
+const { Walker, Dog } = require('../models')
 
 router.get('/', async (req, res) => {
 	try {
@@ -120,7 +120,7 @@ router.get(
 		console.log('====> inside /home')
 		console.log('====> user', req.user)
 		try {
-			let allData = await Walker.find({})
+			let allData = await Dog.find({})
 			res.status(200).json({
 				information: allData
 			})
