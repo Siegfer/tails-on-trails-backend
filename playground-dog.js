@@ -1,4 +1,7 @@
 const { Dog } = require('./models')
+console.log('🧚🏽‍♂️ -----------------')
+console.log('🧚🏽‍♂️ ~ Dog', Dog)
+console.log('🧚🏽‍♂️ -----------------')
 
 async function createNewDog() {
 	try {
@@ -25,8 +28,5 @@ async function createNewDog() {
 		console.log('🧚🏽‍♂️ ------------------------------------')
 		console.log('🧚🏽‍♂️ ~ createNewDog ~ error', error)
 		console.log('🧚🏽‍♂️ ------------------------------------')
-		console.log('🧚🏽‍♂️ ~ createNewDog ~ error', error)
 	}
 }
-
-createNewDog()

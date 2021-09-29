@@ -2,18 +2,34 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const scheduleSchema = new Schema({
-	// definitely look more into creating working Schema for schedule
-	schedule_begin: Date,
-	schedule_end: Date,
-	schedule_days_runs: [
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-		'Sunday'
-	]
+	monday: {
+		type: Boolean,
+		default: true
+	},
+	tuesday: {
+		type: Boolean,
+		default: true
+	},
+	wednesday: {
+		type: Boolean,
+		default: true
+	},
+	thursday: {
+		type: Boolean,
+		default: true
+	},
+	friday: {
+		type: Boolean,
+		default: true
+	},
+	saturday: {
+		type: Boolean,
+		default: true
+	},
+	sunday: {
+		type: Boolean,
+		default: true
+	}
 })
 
 module.exports = mongoose.model('Schedule', scheduleSchema)

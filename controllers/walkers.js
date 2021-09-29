@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport2 = require('passport')
-const { Walker, Dog } = require('../models')
+const { Walker, Dog, Schedule } = require('../models')
 
 router.get('/logout', (req, res) => {
 	console.log('===> LOGGING OUT!!')
@@ -102,7 +102,7 @@ router.get(
 		console.log('====> inside walkers/home')
 		console.log('====> user', req.user)
 		try {
-			let allData = await Dog.find({})
+			let allData = await Schedule.find({})
 			res.status(200).json({
 				information: allData
 			})
@@ -123,6 +123,19 @@ router.get(
 		console.log('====> user', req.user)
 		const { id, name, email, volunteer, city } = req.user
 		res.json({ id, name, email, volunteer, city })
+	}
+)
+
+router.post(
+	'/',
+	passport2.authenticate('jwt', { session: false }),
+	async (req, res) => {
+		try {
+		} catch (error) {
+			console.log('🧚🏽‍♂️ ---------------------')
+			console.log('🧚🏽‍♂️ ~ error', error)
+			console.log('🧚🏽‍♂️ ---------------------')
+		}
 	}
 )
 
