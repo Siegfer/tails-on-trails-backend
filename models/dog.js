@@ -28,8 +28,7 @@ const dogSchema = new Schema({
 	description: {
 		type: String,
 		required: true
-	},
-	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
+	}
 })
 
 module.exports = mongoose.model('Dog', dogSchema)

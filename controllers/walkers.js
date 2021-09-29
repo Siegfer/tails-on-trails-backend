@@ -5,11 +5,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport = require('passport')
-const { Shelter } = require('../models')
+const { Walker } = require('../models')
 
 router.get('/', async (req, res) => {
 	try {
-		let allData = await Shelter.find({})
+		let allData = await Walker.find({})
 		res.status(200).json({
 			information: allData
 		})
@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
 	console.log('===> Inside of /signup')
 	console.log(req.body)
 
-	Shelter.findOne({ email: req.body.email })
+	Walker.findOne({ email: req.body.email })
 		.then((user) => {
 			// if email already exists, a user will come back
 			if (user) {
@@ -43,12 +43,12 @@ router.post('/signup', async (req, res) => {
 				return res.status(400).json({ message: 'Email already exists' })
 			} else {
 				// Create a new user
-				const newUser = new Shelter({
+				const newUser = new Walker({
 					name: req.body.name,
 					email: req.body.email,
 					password: req.body.password,
 					city: req.body.city,
-					provider: req.body.provider
+					volunteer: req.body.volunteer
 				})
 
 				// Salt and hash the password - before saving the user
@@ -78,12 +78,9 @@ router.post('/login', async (req, res) => {
 	console.log('===> Inside of /login')
 	console.log(req.body)
 
-	const foundUser = await Shelter.findOne({ email: req.body.email })
+	const foundUser = await Walker.findOne({ email: req.body.email })
 
 	if (foundUser) {
-		console.log('🧚🏽‍♂️ -------------------------------------------')
-		console.log('🧚🏽‍♂️ ~ router.post ~ foundUser', foundUser.password)
-		console.log('🧚🏽‍♂️ -------------------------------------------')
 		// user is in the DB
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
 		console.log('Match User', isMatch)
@@ -97,7 +94,7 @@ router.post('/login', async (req, res) => {
 				email: foundUser.email,
 				name: foundUser.name,
 				city: foundUser.city,
-				provider: foundUser.provider
+				volunteer: req.body.volunteer
 			}
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
@@ -125,8 +122,8 @@ router.get(
 	(req, res) => {
 		console.log('====> inside /profile')
 		console.log('====> user', req.user)
-		const { id, name, email, provider, city } = req.user // object with user object inside
-		res.json({ id, name, email, provider, city })
+		const { id, name, email, volunteer, city } = req.user // object with user object inside
+		res.json({ id, name, email, volunteer, city })
 	}
 )
 
