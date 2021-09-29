@@ -5,14 +5,19 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport = require('passport')
-const { Shelter, Walker } = require('../models')
+const { Shelter, Walker, Dog } = require('../models')
+
+router.get('/logout', (req, res) => {
+	req.logOut()
+	res.redirect('/')
+})
 
 router.get('/test', async (req, res) => {
 	res.json({ message: 'Testing users controller' })
 })
 
 router.post('/signup', async (req, res) => {
-	console.log('===> Inside of /signup')
+	console.log('===> Inside of shelters/signup')
 	console.log(req.body)
 
 	Shelter.findOne({ email: req.body.email })
@@ -49,7 +54,7 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	console.log('===> Inside of /login')
+	console.log('===> Inside of shelters/login')
 	console.log(req.body)
 
 	const foundUser = await Shelter.findOne({ email: req.body.email })
@@ -66,7 +71,7 @@ router.post('/login', async (req, res) => {
 				provider: foundUser.provider
 			}
 
-			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+			jwt.sign(payload, JWT_SECRET, { expiresIn: 300 }, (err, token) => {
 				if (err) {
 					res.status(400).json({ message: 'Session has ended, please log in again' })
 				}
@@ -84,10 +89,10 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
-	'/home',
+	'/volunteer',
 	passport.authenticate('jwt', { session: false }),
 	async (req, res) => {
-		console.log('====> inside /home')
+		console.log('====> inside shelters/home')
 		console.log('====> user', req.user)
 		try {
 			let allData = await Walker.find({})
@@ -107,7 +112,7 @@ router.get(
 	'/profile',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
-		console.log('====> inside /profile')
+		console.log('====> inside shelters/profile')
 		console.log('====> user', req.user)
 
 		const { id, name, email, provider, city } = req.user

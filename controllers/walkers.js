@@ -7,22 +7,10 @@ const { JWT_SECRET } = process.env
 const passport2 = require('passport')
 const { Walker, Dog } = require('../models')
 
-router.get('/', async (req, res) => {
-	try {
-		let allData = await Walker.find({})
-		res.status(200).json({
-			information: allData
-		})
-	} catch (error) {
-		console.log('🧚🏽‍♂️ ----------------------------------')
-		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
-		console.log('🧚🏽‍♂️ ----------------------------------')
-		res.status(500),
-			json({
-				message: 'Something went wrong. Please try again later!'
-			})
-	}
-	y
+router.get('/logout', (req, res) => {
+	console.log('===> LOGGING OUT!!')
+	req.logOut()
+	res.redirect('/')
 })
 
 router.get('/test', async (req, res) => {
@@ -31,7 +19,7 @@ router.get('/test', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 	// POST - adding the new user to the database
-	console.log('===> Inside of /signup')
+	console.log('===> Inside of walkers/signup')
 	console.log(req.body)
 
 	Walker.findOne({ email: req.body.email })
@@ -73,21 +61,15 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-	// POST - finding a user and returning the user
-	console.log('===> Inside of /login')
+	console.log('===> Inside of walkers/login')
 	console.log(req.body)
 
 	const foundUser = await Walker.findOne({ email: req.body.email })
 
 	if (foundUser) {
-		// user is in the DB
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
 		console.log('Match User', isMatch)
 		if (isMatch) {
-			// if user match, then we want to send a JSON Web Token
-			// Create a token payload
-			// add an expiredToken = Date.now()
-			// save the user
 			const payload = {
 				id: foundUser.id,
 				email: foundUser.email,
@@ -96,7 +78,7 @@ router.post('/login', async (req, res) => {
 				volunteer: req.body.volunteer
 			}
 
-			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+			jwt.sign(payload, JWT_SECRET, { expiresIn: 300 }, (err, token) => {
 				if (err) {
 					res.status(400).json({ message: 'Session has ended, please log in again' })
 				}
@@ -117,7 +99,7 @@ router.get(
 	'/home',
 	passport2.authenticate('jwt', { session: false }),
 	async (req, res) => {
-		console.log('====> inside /home')
+		console.log('====> inside walkers/home')
 		console.log('====> user', req.user)
 		try {
 			let allData = await Dog.find({})
@@ -137,9 +119,9 @@ router.get(
 	'/profile',
 	passport2.authenticate('jwt', { session: false }),
 	(req, res) => {
-		console.log('====> inside /profile')
+		console.log('====> inside walkers/profile')
 		console.log('====> user', req.user)
-		const { id, name, email, volunteer, city } = req.user // object with user object inside
+		const { id, name, email, volunteer, city } = req.user
 		res.json({ id, name, email, volunteer, city })
 	}
 )
