@@ -120,7 +120,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
-	'/shelterProfile',
+	'/profile',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		console.log('====> inside /profile')

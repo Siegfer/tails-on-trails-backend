@@ -81,10 +81,6 @@ router.post('/login', async (req, res) => {
 	const foundUser = await Walker.findOne({ email: req.body.email })
 
 	if (foundUser) {
-		console.log('🧚🏽‍♂️ -------------------------------------------')
-		console.log('🧚🏽‍♂️ ~ router.post ~ foundUser', foundUser.password)
-		console.log('🧚🏽‍♂️ -------------------------------------------')
-
 		// user is in the DB
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
 		console.log('Match User', isMatch)
@@ -121,7 +117,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
-	'/walkerProfile',
+	'/profile',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		console.log('====> inside /profile')
