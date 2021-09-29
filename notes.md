@@ -32,3 +32,12 @@
  */
 ```
 
+walkers log in
+walkers create their availability
+edit same format
+delete the form
+
+shelter create dog profile
+delete dog /adopt dog profile
+
+shelter log ino their profile see all volunteer
