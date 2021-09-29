@@ -4,7 +4,7 @@ const router = express()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
-const passport = require('passport')
+const passport2 = require('passport')
 const { Walker } = require('../models')
 
 router.get('/', async (req, res) => {
@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
 		console.log('🧚🏽‍♂️ ----------------------------------')
 		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
 		console.log('🧚🏽‍♂️ ----------------------------------')
-		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
 		res.status(500),
 			json({
 				message: 'Something went wrong. Please try again later!'
@@ -99,9 +98,7 @@ router.post('/login', async (req, res) => {
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
 				if (err) {
-					res
-						.status(400)
-						.json({ message: 'Session has ended, please log in again' })
+					res.status(400).json({ message: 'Session has ended, please log in again' })
 				}
 				const legit = jwt.verify(token, JWT_SECRET, { expiresIn: 60 })
 				console.log('===> legit')
@@ -117,8 +114,28 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
+	'/home',
+	passport2.authenticate('jwt', { session: false }),
+	async (req, res) => {
+		console.log('====> inside /home')
+		console.log('====> user', req.user)
+		try {
+			let allData = await Walker.find({})
+			res.status(200).json({
+				information: allData
+			})
+		} catch (error) {
+			console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
+			res.status(500).json({
+				message: 'Something went wrong. Please try again later!'
+			})
+		}
+	}
+)
+
+router.get(
 	'/profile',
-	passport.authenticate('jwt', { session: false }),
+	passport2.authenticate('jwt', { session: false }),
 	(req, res) => {
 		console.log('====> inside /profile')
 		console.log('====> user', req.user)
