@@ -1,22 +1,12 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
+const Base = require('./base')
 
-// doesn't need discriminatorWalker
-const walkerSchema = new Schema({
-	name: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: String,
-		required: true
-	},
-	mobileNumber: {
-		type: Number,
-		required: true
-	},
-	schedule: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }]
-})
+const Walker = Base.discriminator(
+	'WalkerBase',
+	new Schema({
+		volunteer: { type: String, required: true }
+	})
+)
 
-// doesn't need discriminator
-module.exports = mongoose.model('Walker', walkerSchema)
+module.exports = mongoose.model('WalkerBase')

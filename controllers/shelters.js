@@ -47,6 +47,7 @@ router.post('/signup', async (req, res) => {
 					name: req.body.name,
 					email: req.body.email,
 					password: req.body.password,
+					city: req.body.city,
 					provider: req.body.provider
 				})
 
@@ -95,6 +96,7 @@ router.post('/login', async (req, res) => {
 				id: foundUser.id,
 				email: foundUser.email,
 				name: foundUser.name,
+				city: foundUser.city,
 				provider: foundUser.provider
 			}
 
@@ -118,13 +120,13 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
-	'/profile',
+	'/shelterProfile',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		console.log('====> inside /profile')
 		console.log('====> user', req.user)
-		const { id, name, email } = req.user // object with user object inside
-		res.json({ id, name, email })
+		const { id, name, email, provider, city } = req.user // object with user object inside
+		res.json({ id, name, email, provider, city })
 	}
 )
 

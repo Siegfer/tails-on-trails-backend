@@ -43,10 +43,12 @@ router.post('/signup', async (req, res) => {
 				return res.status(400).json({ message: 'Email already exists' })
 			} else {
 				// Create a new user
-				const newUser = new Shelter({
+				const newUser = new Walker({
 					name: req.body.name,
 					email: req.body.email,
-					password: req.body.password
+					password: req.body.password,
+					city: req.body.city,
+					volunteer: req.body.volunteer
 				})
 
 				// Salt and hash the password - before saving the user
@@ -82,6 +84,7 @@ router.post('/login', async (req, res) => {
 		console.log('🧚🏽‍♂️ -------------------------------------------')
 		console.log('🧚🏽‍♂️ ~ router.post ~ foundUser', foundUser.password)
 		console.log('🧚🏽‍♂️ -------------------------------------------')
+
 		// user is in the DB
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
 		console.log('Match User', isMatch)
@@ -93,7 +96,9 @@ router.post('/login', async (req, res) => {
 			const payload = {
 				id: foundUser.id,
 				email: foundUser.email,
-				name: foundUser.name
+				name: foundUser.name,
+				city: foundUser.city,
+				volunteer: req.body.volunteer
 			}
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
@@ -116,13 +121,13 @@ router.post('/login', async (req, res) => {
 })
 
 router.get(
-	'/profile',
+	'/walkerProfile',
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		console.log('====> inside /profile')
 		console.log('====> user', req.user)
-		const { id, name, email } = req.user // object with user object inside
-		res.json({ id, name, email })
+		const { id, name, email, volunteer, city } = req.user // object with user object inside
+		res.json({ id, name, email, volunteer, city })
 	}
 )
 
