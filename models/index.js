@@ -29,11 +29,13 @@ const Shelter = require('./shelter')
 const Base = require('./base')
 const Dog = require('./dog')
 const Walker = require('./walker')
+const Schedule = require('./schedule')
 
 module.exports = {
 	// model goes here
 	Shelter,
 	Base,
 	Dog,
-	Walker
+	Walker,
+	Schedule
 }
