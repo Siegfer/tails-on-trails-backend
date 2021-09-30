@@ -78,7 +78,7 @@ router.post('/login', async (req, res) => {
 				volunteer: req.body.volunteer
 			}
 
-			jwt.sign(payload, JWT_SECRET, { expiresIn: 300 }, (err, token) => {
+			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
 				if (err) {
 					res.status(400).json({ message: 'Session has ended, please log in again' })
 				}
@@ -127,10 +127,23 @@ router.get(
 )
 
 router.post(
-	'/',
+	'/schedule',
 	passport2.authenticate('jwt', { session: false }),
 	async (req, res) => {
 		try {
+			console.log('====> inside walkers/profile')
+			console.log('====> user', req.user)
+			let currentUser = await Walker.findOne({
+				where: { id: id }
+			})
+			let newSchedule = await Schedule.create({})
+			currentUser.schedule = newSchedule._id
+			currentUser.save()
+			let updateWalker = await currentUser.populate('schedule')
+			console.log(currentUser)
+			res.status(200).json({
+				update: updateWalker
+			})
 		} catch (error) {
 			console.log('🧚🏽‍♂️ ---------------------')
 			console.log('🧚🏽‍♂️ ~ error', error)
