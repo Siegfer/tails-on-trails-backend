@@ -7,27 +7,24 @@ const dogSchema = new Schema({
 		required: true
 	},
 	breed: {
-		type: String,
-		required: true
+		type: String
 	},
 	gender: {
 		type: String,
-		required: true
+		require: true
 	},
 	size: {
 		type: String,
 		required: true
 	},
 	characteristic: {
-		type: Array,
-		required: true
+		type: String
 	},
 	Age: {
 		type: Number
 	},
 	description: {
-		type: String,
-		required: true
+		type: String
 	}
 })
 
