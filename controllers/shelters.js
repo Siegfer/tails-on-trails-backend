@@ -220,4 +220,28 @@ router.post(
 	}
 )
 
+router.delete(
+	'/:idx',
+	passport.authenticate('jwt', { session: false }),
+	async (req, res) => {
+		try {
+			console.log('====> inside shelters/add')
+			console.log('====> user', req.user)
+
+			const { id } = req.user
+			const dogId = req.params.idx
+
+			const removeItem = await dog.findOne({
+				where: { userId: id, dogId }
+			})
+			await removeItem.destroy()
+
+			res.redirect('/profile')
+		} catch (error) {
+			console.log(error)
+			res.render('error')
+		}
+	}
+)
+
 module.exports = router
