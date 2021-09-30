@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
 const passport = require('passport')
 const { Shelter, Walker, Dog } = require('../models')
+const mongoose = require('mongoose')
 
 router.get('/test', async (req, res) => {
 	res.json({ message: 'Testing users controller' })
@@ -102,7 +103,7 @@ router.get(
 		console.log('====> inside shelters/dogs')
 		console.log('====> user', req.user)
 		try {
-			let allData = await Dog.find({})
+			let allData = await mongoose.model('Dog').find({})
 			res.status(200).json({
 				dogs: allData
 			})
@@ -124,7 +125,7 @@ router.get(
 		try {
 			let allData = await mongoose.model('Adopt').find({})
 			res.status(200).json({
-				volunteers: allData
+				adopted: allData
 			})
 		} catch (error) {
 			console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
