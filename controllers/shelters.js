@@ -11,11 +11,6 @@ const {
 	Dog
 } = require('../models')
 
-router.get('/logout', (req, res) => {
-	req.logOut()
-	res.redirect('/')
-})
-
 router.get('/test', async (req, res) => {
 	res.json({ message: 'Testing users controller' })
 })
@@ -217,6 +212,24 @@ router.post(
 		} catch (error) {
 			console.log('🧚🏽‍♂️ ~ error', error)
 		}
+	}
+)
+
+router.post(
+	'/idx:',
+	passport.authenticate('jwt', { session: false }),
+	async (req, res) => {
+		Dog.findOne(
+			{ _id: id },
+			function (err, result) {
+				let swap = new Adopted(result.toObject())
+				swap._id = mongoose.Types.ObjectId()
+				swap.isNew = true
+
+				result.remove()
+				swap.save()
+			}
+		)
 	}
 )
 

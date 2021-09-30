@@ -28,4 +28,7 @@ const dogSchema = new Schema({
 	}
 })
 
-module.exports = mongoose.model('Dog', dogSchema)
+module.exports = [
+	mongoose.model('Dog', dogSchema),
+	mongoose.model('Adopted', dogSchema)
+]
