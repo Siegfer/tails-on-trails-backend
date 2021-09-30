@@ -18,33 +18,26 @@ router.get('/test', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-	// POST - adding the new user to the database
 	console.log('===> Inside of walkers/signup')
 	console.log(req.body)
 
 	Walker.findOne({ email: req.body.email })
 		.then((user) => {
-			// if email already exists, a user will come back
 			if (user) {
-				// send a 400 response
 				return res.status(400).json({ message: 'Email already exists' })
 			} else {
-				// Create a new user
 				const newUser = new Walker({
 					name: req.body.name,
 					email: req.body.email,
 					password: req.body.password,
-					city: req.body.city,
-					volunteer: req.body.volunteer
+					city: req.body.city
 				})
 
-				// Salt and hash the password - before saving the user
 				bcrypt.genSalt(10, (err, salt) => {
 					if (err) throw Error
 
 					bcrypt.hash(newUser.password, salt, (err, hash) => {
 						if (err) console.log('==> Error inside of hash', err)
-						// Change the password in newUser to the hash
 						newUser.password = hash
 						newUser
 							.save()
@@ -56,7 +49,9 @@ router.post('/signup', async (req, res) => {
 		})
 		.catch((err) => {
 			console.log('Error finding user', err)
-			res.json({ message: 'An error ocurred. Please try again.' })
+			res.json({
+				message: 'An error ocurred. Please try again.'
+			})
 		})
 })
 
@@ -64,7 +59,9 @@ router.post('/login', async (req, res) => {
 	console.log('===> Inside of walkers/login')
 	console.log(req.body)
 
-	const foundUser = await Walker.findOne({ email: req.body.email })
+	const foundUser = await Walker.findOne({
+		email: req.body.email
+	})
 
 	if (foundUser) {
 		let isMatch = await bcrypt.compare(req.body.password, foundUser.password)
@@ -74,21 +71,30 @@ router.post('/login', async (req, res) => {
 				id: foundUser.id,
 				email: foundUser.email,
 				name: foundUser.name,
-				city: foundUser.city,
-				volunteer: req.body.volunteer
+				city: foundUser.city
 			}
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
 				if (err) {
-					res.status(400).json({ message: 'Session has ended, please log in again' })
+					res.status(400).json({
+						message: 'Session has ended, please log in again'
+					})
 				}
-				const legit = jwt.verify(token, JWT_SECRET, { expiresIn: 60 })
+				const legit = jwt.verify(token, JWT_SECRET, {
+					expiresIn: 60
+				})
 				console.log('===> legit')
 				console.log(legit)
-				res.json({ success: true, token: `Bearer ${token}`, userData: legit })
+				res.json({
+					success: true,
+					token: `Bearer ${token}`,
+					userData: legit
+				})
 			})
 		} else {
-			return res.status(400).json({ message: 'Email or Password is incorrect' })
+			return res.status(400).json({
+				message: 'Email or Password is incorrect'
+			})
 		}
 	} else {
 		return res.status(400).json({ message: 'User not found' })
@@ -97,7 +103,9 @@ router.post('/login', async (req, res) => {
 
 router.get(
 	'/home',
-	passport2.authenticate('jwt', { session: false }),
+	passport2.authenticate('jwt', {
+		session: false
+	}),
 	async (req, res) => {
 		console.log('====> inside walkers/home')
 		console.log('====> user', req.user)
@@ -117,7 +125,9 @@ router.get(
 
 router.get(
 	'/profile',
-	passport2.authenticate('jwt', { session: false }),
+	passport2.authenticate('jwt', {
+		session: false
+	}),
 	(req, res) => {
 		console.log('====> inside walkers/profile')
 		console.log('====> user', req.user)
@@ -128,7 +138,9 @@ router.get(
 
 router.post(
 	'/schedule',
-	passport2.authenticate('jwt', { session: false }),
+	passport2.authenticate('jwt', {
+		session: false
+	}),
 	async (req, res) => {
 		try {
 			console.log('====> inside walkers/profile')

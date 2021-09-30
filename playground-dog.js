@@ -1,38 +1,19 @@
 const { Dog } = require('./models')
-console.log(`🧚🏽‍♂️ ~ Dog`, Dog)
+const mongoose = require('mongoose')
 
-async function swapDog() {
-	let currentDog = await Dog.findById(id)
+async function swapDog(id) {
 	try {
-		let Adoption = (err, result) => {
-			let swap = new Adopted(result.toObject())
-			swap._id = mongoose.Types.ObjectId()
-			swap.isNew = true
-		}
-
-		result.remove()
-		swap.save()
+		let currentDog = await mongoose.model('Dog').findById(id)
+		let Adoption = new (mongoose.model('Adopt'))(currentDog.toObject())
+		Adoption._id = mongoose.Types.ObjectId()
+		Adoption.isNew = true
+		currentDog.remove()
+		Adoption.save()
 	} catch (error) {
 		console.log(`🧚🏽‍♂️ ~ swapDog ~ error`, error)
 	}
 }
-// swapDog()
-
-async function addScheduleToWalker(id) {
-	try {
-		let currentUser = await Walker.findById(id)
-		let newSchedule = await Schedule.create({})
-		currentUser.schedule = newSchedule._id
-		currentUser.save()
-		let updateWalker = await currentUser.populate(
-			'schedule'
-		)
-		console.log(currentUser)
-	} catch (error) {
-		console.log(error)
-	}
-}
-// addScheduleToWalker('6154dbff77ee351232121116')
+swapDog('61562f963c3e9720a16a1370')
 
 async function createNewDog() {
 	try {
@@ -52,18 +33,15 @@ async function createNewDog() {
 			description:
 				'thickly coated, compact sled dog of medium size and great endurance, was developed to work in packs, pulling light loads at moderate speeds over vast frozen expanses. This northern breed is friendly, fastidious, and dignified.'
 		})
-		console.log(
-			`🧚🏽‍♂️ ~ createNewDog ~ newDog`,
-			newDog
-		)
+		console.log(`🧚🏽‍♂️ ~ createNewDog ~ newDog`, newDog)
 	} catch (error) {
 		console.log('🧚🏽‍♂️ ~ createNewDog ~ error', error)
 	}
 }
-createNewDog()
+// createNewDog()
 
 const seeAllDogs = async () => {
 	let allData = await Dog.find({})
 	console.log(`🧚🏽‍♂️ ~ seeAllDogs ~ allData`, allData)
 }
-seeAllDogs()
+// seeAllDogs()
