@@ -17,25 +17,26 @@ mongoose.connect(connectionString, {
 const db = mongoose.connection
 
 db.once('open', () => {
-	console.log(`connected to MongoDB on ${db.host}:${db.port}`)
+	console.log(
+		`connected to MongoDB on ${db.host}:${db.port}`
+	)
 })
 
 db.on('error', (error) => {
 	console.log('Database error', error)
 })
 
-// Import models here
 const Shelter = require('./shelter')
 const Base = require('./base')
-const Dog = require('./dog')
+const { Dog, Adopted } = require('./dog')
 const Walker = require('./walker')
 const Schedule = require('./schedule')
 
 module.exports = {
-	// model goes here
 	Shelter,
 	Base,
 	Dog,
+	Adopted,
 	Walker,
 	Schedule
 }
