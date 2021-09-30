@@ -15,7 +15,7 @@ const options = {
 module.exports = (passport) => {
 	passport.use(
 		new Strategy(options, (jwt_payload, done) => {
-			Walker.findById(jwt_payload.id)
+			// Walker.findById(jwt_payload.id)
 			Shelter.findById(jwt_payload.id)
 				.then((user) => {
 					if (user) {

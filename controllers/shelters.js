@@ -214,11 +214,15 @@ router.post(
 		}
 	}
 )
-
+/*
 router.post(
 	'/idx:',
 	passport.authenticate('jwt', { session: false }),
 	async (req, res) => {
+		const { id } = req.params
+		let currentDog = await Dog.findOne({
+			where: { id: id }
+		})
 		Dog.findOne(
 			{ _id: id },
 			function (err, result) {
@@ -256,5 +260,6 @@ router.delete(
 		}
 	}
 )
+*/
 
 module.exports = router

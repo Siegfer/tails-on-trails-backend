@@ -5,8 +5,10 @@ const Base = require('./base')
 const shelter = Base.discriminator(
 	'ShelterBase',
 	new Schema({
-		provider: { type: Boolean, require: true },
-		dog: { type: mongoose.Schema.Types.ObjectId, ref: 'Dog' }
+		dog: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Dog'
+		}
 	})
 )
 

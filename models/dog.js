@@ -28,7 +28,7 @@ const dogSchema = new Schema({
 	}
 })
 
+// mongoose.model('Adopt', dogSchema)
 module.exports = [
-	mongoose.model('Dog', dogSchema),
-	mongoose.model('Adopted', dogSchema)
+	mongoose.model('Dog', dogSchema)
 ]
