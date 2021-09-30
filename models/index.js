@@ -29,6 +29,7 @@ db.on('error', (error) => {
 const Shelter = require('./shelter')
 const Base = require('./base')
 const Dog = require('./dog')
+const Adopt = require('./dog')
 const Walker = require('./walker')
 const Schedule = require('./schedule')
 
@@ -36,6 +37,7 @@ module.exports = {
 	Shelter,
 	Base,
 	Dog,
+	Adopt,
 	Walker,
 	Schedule
 }
