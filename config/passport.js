@@ -26,20 +26,20 @@ module.exports = (passport) => {
 	)
 }
 
-module.exports = (passport2) => {
-	passport2.use(
-		new Strategy(options, (jwt_payload, done) => {
-			Walker.findById(jwt_payload.id)
-				.then((user) => {
-					if (user) {
-						return done(null, user)
-					} else {
-						return done(null, false)
-					}
-				})
-				.catch((error) => {
-					console.log(error)
-				})
-		})
-	)
-}
+// module.exports = (passport2) => {
+// 	passport2.use(
+// 		new Strategy(options, (jwt_payload, done) => {
+// 			Walker.findById(jwt_payload.id)
+// 				.then((user) => {
+// 					if (user) {
+// 						return done(null, user)
+// 					} else {
+// 						return done(null, false)
+// 					}
+// 				})
+// 				.catch((error) => {
+// 					console.log(error)
+// 				})
+// 		})
+// 	)
+// }
