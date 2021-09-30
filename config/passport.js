@@ -1,16 +1,21 @@
 require('dotenv').config()
-const { Strategy, ExtractJwt } = require('passport-jwt')
+const {
+	Strategy,
+	ExtractJwt
+} = require('passport-jwt')
 const mongoose = require('mongoose')
 const { Shelter, Walker } = require('../models')
 
 const options = {
-	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	jwtFromRequest:
+		ExtractJwt.fromAuthHeaderAsBearerToken(),
 	secretOrKey: process.env.JWT_SECRET
 }
 
 module.exports = (passport) => {
 	passport.use(
 		new Strategy(options, (jwt_payload, done) => {
+			Walker.findById(jwt_payload.id)
 			Shelter.findById(jwt_payload.id)
 				.then((user) => {
 					if (user) {
