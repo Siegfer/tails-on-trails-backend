@@ -5,7 +5,7 @@ const Base = require('./base')
 const Walker = Base.discriminator(
 	'WalkerBase',
 	new Schema({
-		volunteer: { type: Boolean, required: true },
+		volunteer: { type: String, required: true },
 		schedule: { type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }
 	})
 )

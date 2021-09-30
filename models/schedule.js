@@ -8,27 +8,27 @@ const scheduleSchema = new Schema({
 	},
 	tuesday: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	wednesday: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	thursday: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	friday: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	saturday: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	sunday: {
 		type: Boolean,
-		default: true
+		default: false
 	}
 })
 
