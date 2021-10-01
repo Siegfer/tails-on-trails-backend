@@ -112,21 +112,25 @@ router.get('/dogs', passport.authenticate('jwt', { session: false }), async (req
 	}
 })
 
-router.get('/adopted', passport.authenticate('jwt', { session: false }), async (req, res) => {
-	console.log('====> inside shelters/adopted')
-	console.log('====> user', req.user)
-	try {
-		let allData = await mongoose.model('Adopt').find({})
-		res.status(200).json({
-			adopted: allData
-		})
-	} catch (error) {
-		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
-		res.status(500).json({
-			message: 'Something went wrong. Please try again later!'
-		})
+router.get(
+	'/adopted',
+	// passport.authenticate('jwt', { session: false }),
+	async (req, res) => {
+		console.log('====> inside shelters/adopted')
+		console.log('====> user', req.user)
+		try {
+			let allData = await mongoose.model('Adopt').find({})
+			res.status(200).json({
+				adopted: allData
+			})
+		} catch (error) {
+			console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
+			res.status(500).json({
+				message: 'Something went wrong. Please try again later!'
+			})
+		}
 	}
-})
+)
 
 router.get('/volunteer', passport.authenticate('jwt', { session: false }), async (req, res) => {
 	console.log('====> inside shelters/volunteer')
