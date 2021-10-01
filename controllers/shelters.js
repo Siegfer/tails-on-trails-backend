@@ -96,25 +96,21 @@ router.post('/login', async (req, res) => {
 	}
 })
 
-router.get(
-	'/dogs',
-	// passport.authenticate('jwt', { session: false }),
-	async (req, res) => {
-		console.log('====> inside shelters/dogs')
-		console.log('====> user', req.user)
-		try {
-			let allData = await mongoose.model('Dog').find({})
-			res.status(200).json({
-				dogs: allData
-			})
-		} catch (error) {
-			console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
-			res.status(500).json({
-				message: 'Something went wrong. Please try again later!'
-			})
-		}
+router.get('/dogs', passport.authenticate('jwt', { session: false }), async (req, res) => {
+	console.log('====> inside shelters/dogs')
+	console.log('====> user', req.user)
+	try {
+		let allData = await mongoose.model('Dog').find({})
+		res.status(200).json({
+			dogs: allData
+		})
+	} catch (error) {
+		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
+		res.status(500).json({
+			message: 'Something went wrong. Please try again later!'
+		})
 	}
-)
+})
 
 router.get(
 	'/adopted',
@@ -136,25 +132,21 @@ router.get(
 	}
 )
 
-router.get(
-	'/volunteer',
-	// passport.authenticate('jwt', { session: false }),
-	async (req, res) => {
-		console.log('====> inside shelters/volunteer')
-		console.log('====> user', req.user)
-		try {
-			let allData = await Walker.find({})
-			res.status(200).json({
-				volunteers: allData
-			})
-		} catch (error) {
-			console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
-			res.status(500).json({
-				message: 'Something went wrong. Please try again later!'
-			})
-		}
+router.get('/volunteer', passport.authenticate('jwt', { session: false }), async (req, res) => {
+	console.log('====> inside shelters/volunteer')
+	console.log('====> user', req.user)
+	try {
+		let allData = await Walker.find({})
+		res.status(200).json({
+			volunteers: allData
+		})
+	} catch (error) {
+		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
+		res.status(500).json({
+			message: 'Something went wrong. Please try again later!'
+		})
 	}
-)
+})
 
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
 	console.log('====> inside shelters/profile')
@@ -164,39 +156,35 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
 	res.json({ id, name, email, provider, city })
 })
 
-router.post(
-	'/add',
-	// passport.authenticate('jwt', { session: false }),
-	async (req, res) => {
-		try {
-			console.log('====> inside shelters/add')
-			console.log('====> user', req.user)
+router.post('/add', passport.authenticate('jwt', { session: false }), async (req, res) => {
+	try {
+		console.log('====> inside shelters/add')
+		console.log('====> user', req.user)
 
-			const { id } = req.user
-			let currentUser = await Shelter.findOne({
-				where: { id: id }
-			})
-			let newDog = await Dog.create({
-				name: req.body.name,
-				breed: req.body.breed,
-				gender: req.body.gender,
-				size: req.body.size,
-				characteristic: req.body.characteristic,
-				age: req.body.age,
-				description: req.body.description
-			})
-			currentUser.dog = newDog._id
-			currentUser.save()
-			let updateDog = await currentUser.populate('dog')
-			console.log(currentUser)
-			res.status(200).json({
-				update: updateDog
-			})
-		} catch (error) {
-			console.log('🧚🏽‍♂️ ~ error', error)
-		}
+		const { id } = req.user
+		let currentUser = await Shelter.findOne({
+			where: { id: id }
+		})
+		let newDog = await Dog.create({
+			name: req.body.name,
+			breed: req.body.breed,
+			gender: req.body.gender,
+			size: req.body.size,
+			characteristic: req.body.characteristic,
+			age: req.body.age,
+			description: req.body.description
+		})
+		currentUser.dog = newDog._id
+		currentUser.save()
+		let updateDog = await currentUser.populate('dog')
+		console.log(currentUser)
+		res.status(200).json({
+			update: updateDog
+		})
+	} catch (error) {
+		console.log('🧚🏽‍♂️ ~ error', error)
 	}
-)
+})
 
 /*
 router.post(

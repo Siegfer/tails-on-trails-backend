@@ -16,7 +16,4 @@ const baseSchema = new Schema(
 	baseOptions
 )
 
-module.exports = mongoose.model(
-	'Base',
-	baseSchema
-)
+module.exports = mongoose.model('Base', baseSchema)
