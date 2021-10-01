@@ -6,26 +6,16 @@ const dogSchema = new Schema({
 		type: String,
 		required: true
 	},
-	breed: {
-		type: String
-	},
+	breed: String,
+	img: String,
 	gender: {
 		type: String,
 		require: true
 	},
-	size: {
-		type: String,
-		required: true
-	},
-	characteristic: {
-		type: String
-	},
-	Age: {
-		type: Number
-	},
-	description: {
-		type: String
-	}
+	size: String,
+	characteristic: String,
+	Age: Number,
+	description: String
 })
 
 module.exports = mongoose.model('Dog', dogSchema)
