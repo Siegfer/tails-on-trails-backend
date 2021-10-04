@@ -71,7 +71,8 @@ router.post('/login', async (req, res) => {
 				id: foundUser.id,
 				email: foundUser.email,
 				name: foundUser.name,
-				city: foundUser.city
+				city: foundUser.city,
+				volunteer: foundUser.volunteer
 			}
 
 			jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
