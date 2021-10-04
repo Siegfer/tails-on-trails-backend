@@ -168,7 +168,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), async (req
 			where: { id: id }
 		})
 		let newDog = await Dog.create({
-			name: req.body.name,
+			dogName: req.body.name,
 			breed: req.body.breed,
 			gender: req.body.gender,
 			size: req.body.size,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const dogSchema = new Schema({
-	name: {
+	dogName: {
 		type: String,
 		required: true
 	},
