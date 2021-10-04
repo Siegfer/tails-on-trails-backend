@@ -30,7 +30,8 @@ router.post('/signup', async (req, res) => {
 					name: req.body.name,
 					email: req.body.email,
 					password: req.body.password,
-					city: req.body.city
+					city: req.body.city,
+					volunteer: req.body.volunteer
 				})
 
 				bcrypt.genSalt(10, (err, salt) => {
