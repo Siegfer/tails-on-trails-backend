@@ -32,7 +32,7 @@ router.post('/signup', async (req, res) => {
 					password: req.body.password,
 					city: req.body.city,
 					mobile: Number(req.body.mobile),
-					volunteer: Boolean(req.body.volunteer)
+					volunteer: req.body.volunteer
 				})
 
 				bcrypt.genSalt(10, (err, salt) => {
