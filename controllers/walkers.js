@@ -139,32 +139,4 @@ router.get(
 	}
 )
 
-router.post('/add', passport.authenticate('jwt', { session: false }), async (req, res) => {
-	try {
-		console.log('====> inside shelters/add')
-		console.log('====> user', req.user)
-
-		let { _id } = req.user
-		let currentUser = await Walker.findById(_id)
-		let newDog = await Schedule.create({
-			monday: req.body.name,
-			breed: req.body.breed,
-			gender: req.body.gender,
-			size: req.body.size,
-			characteristic: req.body.characteristic,
-			age: req.body.age,
-			description: req.body.description
-		})
-		console.log(currentUser.dog)
-		currentUser.dog.push(newDog._id)
-		currentUser.save()
-		let updateDog = await currentUser.populate('dog')
-		console.log(currentUser)
-		res.status(200).json({
-			update: updateDog
-		})
-	} catch (error) {
-		console.log('🧚🏽‍♂️ ~ error', error)
-	}
-})
 module.exports = router

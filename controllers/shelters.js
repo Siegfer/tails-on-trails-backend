@@ -104,9 +104,7 @@ router.get('/dogs', passport.authenticate('jwt', { session: false }), async (req
 	try {
 		let { _id } = req.user
 		let currentUser = await Shelter.findById(_id)
-
 		let updateUser = await currentUser.populate('dog')
-
 		console.log(currentUser)
 		res.status(200).json({
 			update: updateUser
