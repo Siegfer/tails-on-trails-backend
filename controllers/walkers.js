@@ -31,6 +31,7 @@ router.post('/signup', async (req, res) => {
 					email: req.body.email,
 					password: req.body.password,
 					city: req.body.city,
+					mobile: req.body.mobile,
 					volunteer: req.body.volunteer
 				})
 
