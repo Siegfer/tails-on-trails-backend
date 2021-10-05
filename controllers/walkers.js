@@ -4,8 +4,8 @@ const router = express()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = process.env
-const passport2 = require('passport')
-const { Walker, Dog, Schedule } = require('../models')
+const passport = require('passport')
+const { Walker } = require('../models')
 
 router.get('/logout', (req, res) => {
 	console.log('===> LOGGING OUT!!')
@@ -106,7 +106,7 @@ router.post('/login', async (req, res) => {
 
 router.get(
 	'/home',
-	passport2.authenticate('jwt', {
+	passport.authenticate('jwt', {
 		session: false
 	}),
 	async (req, res) => {
@@ -128,7 +128,7 @@ router.get(
 
 router.get(
 	'/profile',
-	passport2.authenticate('jwt', {
+	passport.authenticate('jwt', {
 		session: false
 	}),
 	(req, res) => {
@@ -139,32 +139,32 @@ router.get(
 	}
 )
 
-router.post(
-	'/schedule',
-	passport2.authenticate('jwt', {
-		session: false
-	}),
-	async (req, res) => {
-		try {
-			console.log('====> inside walkers/profile')
-			console.log('====> user', req.user)
-			let currentUser = await Walker.findOne({
-				where: { id: id }
-			})
-			let newSchedule = await Schedule.create({})
-			currentUser.schedule = newSchedule._id
-			currentUser.save()
-			let updateWalker = await currentUser.populate('schedule')
-			console.log(currentUser)
-			res.status(200).json({
-				update: updateWalker
-			})
-		} catch (error) {
-			console.log('🧚🏽‍♂️ ---------------------')
-			console.log('🧚🏽‍♂️ ~ error', error)
-			console.log('🧚🏽‍♂️ ---------------------')
-		}
-	}
-)
+router.post('/add', passport.authenticate('jwt', { session: false }), async (req, res) => {
+	try {
+		console.log('====> inside shelters/add')
+		console.log('====> user', req.user)
 
+		let { _id } = req.user
+		let currentUser = await Walker.findById(_id)
+		let newDog = await Schedule.create({
+			monday: req.body.name,
+			breed: req.body.breed,
+			gender: req.body.gender,
+			size: req.body.size,
+			characteristic: req.body.characteristic,
+			age: req.body.age,
+			description: req.body.description
+		})
+		console.log(currentUser.dog)
+		currentUser.dog.push(newDog._id)
+		currentUser.save()
+		let updateDog = await currentUser.populate('dog')
+		console.log(currentUser)
+		res.status(200).json({
+			update: updateDog
+		})
+	} catch (error) {
+		console.log('🧚🏽‍♂️ ~ error', error)
+	}
+})
 module.exports = router

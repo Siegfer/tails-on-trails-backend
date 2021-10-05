@@ -17,9 +17,7 @@ mongoose.connect(connectionString, {
 const db = mongoose.connection
 
 db.once('open', () => {
-	console.log(
-		`connected to MongoDB on ${db.host}:${db.port}`
-	)
+	console.log(`connected to MongoDB on ${db.host}:${db.port}`)
 })
 
 db.on('error', (error) => {
@@ -31,13 +29,11 @@ const Base = require('./base')
 const Dog = require('./dog')
 const Adopt = require('./dog')
 const Walker = require('./walker')
-const Schedule = require('./schedule')
 
 module.exports = {
 	Shelter,
 	Base,
 	Dog,
 	Adopt,
-	Walker,
-	Schedule
+	Walker
 }
