@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/Siegfer/tails-on-trails-backend/issues"
   },
-  "homepage": "https://github.com/Siegfer/tails-on-trails-backend#readme"
+  "homepage": "https://github.com/Siegfer/tails-on-trails-backend#readme",
+  "engines": {
+    "node": "v16.10.0"
+  }
 }
