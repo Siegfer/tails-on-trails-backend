@@ -102,9 +102,14 @@ router.get('/dogs', passport.authenticate('jwt', { session: false }), async (req
 	console.log('====> inside shelters/dogs')
 	console.log('====> user', req.user)
 	try {
-		let allData = await mongoose.model('Dog').find({})
+		let { _id } = req.user
+		let currentUser = await Shelter.findById(_id)
+
+		let updateUser = await currentUser.populate('dog')
+
+		console.log(currentUser)
 		res.status(200).json({
-			dogs: allData
+			update: updateUser
 		})
 	} catch (error) {
 		console.log('🧚🏽‍♂️ ~ router.get ~ error', error)
@@ -163,10 +168,8 @@ router.post('/add', passport.authenticate('jwt', { session: false }), async (req
 		console.log('====> inside shelters/add')
 		console.log('====> user', req.user)
 
-		const { id } = req.user
-		let currentUser = await Shelter.findOne({
-			where: { id: id }
-		})
+		let { _id } = req.user
+		let currentUser = await Shelter.findById(_id)
 		let newDog = await Dog.create({
 			name: req.body.name,
 			breed: req.body.breed,
@@ -176,7 +179,8 @@ router.post('/add', passport.authenticate('jwt', { session: false }), async (req
 			age: req.body.age,
 			description: req.body.description
 		})
-		currentUser.dog = newDog._id
+		console.log(currentUser.dog)
+		currentUser.dog.push(newDog._id)
 		currentUser.save()
 		let updateDog = await currentUser.populate('dog')
 		console.log(currentUser)
